@@ -53,8 +53,8 @@
     }
 
     .img {
-      width: 130px;
-      height: 70px;
+      width: 120px;
+      height: 90px;
     }
 
     i {
@@ -105,9 +105,10 @@
         padding: 0 20px;
       }
 
-      .img {
-        margin: 0;
-      }
+    .img {
+    width: 80px; /* الحجم الجديد على الموبايل */
+    height: auto; /* يحافظ على نسبة العرض إلى الارتفاع */
+  }
     }
 
     @media (max-width: 768px) {
@@ -132,7 +133,7 @@
       }
 
       .burger {
-        display: flex;
+        display: block;
       }
     }
 
