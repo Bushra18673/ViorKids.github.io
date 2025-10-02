@@ -1,409 +1,669 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Task</title>
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/all.css"/>
-    
-</head>
+  <meta charset="UTF-8">
+  <title>Task</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/all.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-size: 14px;
+      font-family: Arial, Helvetica, sans-serif;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    .header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 90px; 
+      position: fixed; 
+      top: 0; 
+      z-index: 2;
+      background-color: rgb(252, 246, 237);  
+    }
+
+   
+    .list li {
+      display: inline-block; 
+      padding: 20px;
+    }
+
+    .list li a {
+      text-decoration: none;
+      color: rgb(197, 150, 61); 
+      font-size: 17px;
+    }
+
+    .list a:hover {
+      color: rgb(223, 153, 13); 
+      text-decoration: underline;
+    }
+
+    .img {
+      width: 150px;
+      height: 90px;
+    }
+
+    i {
+      color: rgb(197, 150, 61);
+      padding: 20px;
+      font-size: 17px;
+    }
+
+    .home {
+      height: 100vh;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      width: 100%;
+      position: relative;
+    }
+
+    .home-content {
+      width: 65%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-75%, -45%);
+      text-align: center;
+    }
+
+    /* القائمة افتراضياً (ديسكتوب / لاب توب) */
+.list {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  gap: 20px;
+}
+
+/* أيقونة البرغر مخفية على الديسكتوب */
+.burger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: rgb(197, 150, 61);
+}
+
+  
+
+    /* ---------------- Responsive ---------------- */
+    @media (max-width: 992px) {
+      .header {
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .img {
+        margin: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .list {
+        display: none;
+        position: absolute;
+        top: 65px;
+        right: 0;
+        width: 200px;
+        background: rgb(252, 246, 237);
+        flex-direction: column;
+        text-align: left;
+      }
+
+      .list li {
+        display: block;
+        padding: 10px;
+      }
+
+      .list.active {
+        display: flex;
+      }
+
+      .burger {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .home-content {
+        width: 90%;
+        transform: translate(-50%, -50%);
+      }
+
+      .list li a {
+        font-size: 14px;
+      }
+
+      .img {
+        width: 100px;
+        height: auto;
+      }
+    }
+    /* موبايل / تابلت */
+@media (max-width: 1024px) {
+  .list {
+    display: none; /* تخفي القائمة */
+    flex-direction: column;
+    background: rgb(252, 246, 237);
+    position: absolute;
+    top: 90px;
+    right: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    gap: 10px;
+  }
+
+  /* إظهار أيقونة البرغر */
+  .burger {
+    display: block;
+  }
+
+  /* لما تمر الماوس على البرغر تظهر القائمة */
+  .burger:hover + .list,
+  .list:hover {
+    display: flex;
+  }
+}
+
+i{
+   color:rgb(197, 150, 61);
+  padding: 20px;
+  font-size: 17px;
+  padding-top: 20px;
+}
+
+.home {
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  position: relative;
+}
+
+.home-content {
+  width: 90%; /* أصغر شوي عشان يشتغل على الموبايل */
+  max-width: 1200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% , -50%);
+  text-align: center;
+}
+
+.Category {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.Category-content {
+  margin: auto;
+  width: 100%;
+  color: rgb(197, 150, 61);
+}
+
+.category-items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* عمودين متساويين */
+  gap: 60px;
+  align-items: center;
+}
+
+.category-item {
+  margin: 50px;
+}
+
+h5, span {
+  padding: 10px;
+  color: rgb(197, 150, 61);
+}
+h2, h4, p, h1 {
+  color: rgb(197, 150, 61);
+}
+
+.category-item6 {
+  background-image: url(./Images/coming\ sooon.png);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  transition: 1s;
+  width: 100%;   /* ياخذ كامل العرض */
+  height: 100%;  /* مرن حسب مساحة العنصر */
+}
+
+.category-item6:hover {
+  transform: scale(1.5);
+}
+
+.category-item5 {
+  margin: auto;
+  text-align: center;
+  font-size: 30px;
+  line-height: 1.8;
+}
+/* ✅ Media Queries */
+@media (max-width: 992px) {
+  .category-items {
+    grid-template-columns: 1fr; /* عمود واحد للتابلت */
+  }
+
+  .category-item6 {
+    height: 300px; /* ارتفاع معقول */
+  }
+}
+
+@media (max-width: 600px) {
+  .home-content {
+    width: 95%;
+    transform: translate(-50%, -50%);
+  }
+
+  .category-item5 {
+    font-size: 18px;
+  }
+
+  .category-item6 {
+    height: 200px;
+  }
+}
+.products{
+  display: grid;
+  grid-template-columns: repeat(3,35%);
+  grid-auto-rows: minmax(150px,auto);
+  grid-gap: 10px 10px;
+}
+
+.product-item{
+  margin-top: 50px;
+  padding-left: 80px;
+  width: 350px;
+  height: 400px;
+  position: relative; 
+}
+.product-img {
+  width: 100%;
+  position: relative;
+}
+.product-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scalex(0);
+  opacity: 1;
+  transition: 1s;
+}
+.title{
+ height: 80px;
+}
+.title-products{
+  font-size: 50px;
+  font-weight: lighter;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.product-item:hover .product-overlay{
+  visibility: visible;
+  opacity: 1;
+  transform: scaleX(1.3);
+}
+
+.product-overlay a {
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.product-overlay a i {
+  line-height: 43px ;
+  margin: auto;
+  padding-left: 6px;
+  color: aliceblue;
+  font-size: 16px;
+}
+
+/* ✅ تابلت */
+@media (max-width: 1200px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr); /* عمودين */
+    justify-content: center;
+  }
+  .product-item {
+    width: 250px;   /* ⬅️ حجم أصغر */
+    height: 300px;  /* ⬅️ ارتفاع أصغر */
+    margin: 20px auto;
+    padding-left: 0;
+  }
+  .product-img img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* ✅ موبايل → صورتين أصغر */
+@media (max-width: 768px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr); /* صف فيه صورتين */
+  }
+  .product-item {
+    width: 100%;
+    height: auto;
+    margin: 10px auto;
+    padding-left: 0;
+  }
+  .product-img img {
+    height: auto;
+  }
+}
+
+.contact {
+  width: 100%;
+  background-color: rgb(252, 246, 237);
+  padding: 20px 0;
+}
+
+.content-contact {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
+  color: rgb(223, 153, 13);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* النص */
+.p-contact {
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgb(223, 153, 13);
+}
+
+/* أيقونات السوشال ميديا */
+.social-icons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.contact-div {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+}
+
+.contact-div i {
+  font-size: 30px;
+  color: rgb(223, 153, 13);
+  transition: all 0.3s ease;
+}
+
+.contact-div i:hover {
+  transform: scale(1.3);
+  color: rgb(197, 130, 0);
+}
+
+/* ✅ موبايل */
+@media (max-width: 768px) {
+  .p-contact {
+    width: 90%;
+    font-size: 13px;
+  }
+  .contact-div i {
+    font-size: 25px;
+  }
+}
+
+/* ✅ تابلت */
+@media (max-width: 1024px) {
+  .p-contact {
+    width: 80%;
+    font-size: 14px;
+  }
+}
+
+
+</style>
 <body>
-
-<section>
-    <div class="home">
-        <div class="header">
-            <img src="./Images/5.png" width="150px"  class="img" />
- <ul class="list">
-    <li class="dropdown" >
-    <a href="#" class="link-item">New Collection </a>
-    <div  class="dropdown-menu">
-    <ul class="list-dr">
-         <li ><p class="li1">Dresses</p></li> 
-                            <li>evning </li>
-                            <li>kimono</li>
-                            <li>maxi</li>
-                            <li>cocktail</li>
-                            </ul>
-         <ul class="list-dr">
-                <li><p class="li1">Shoses</p></li> 
-                                <li>sneaker</li>
-                                <li>sandal</li>
-                                <li>mule</li>
-                                <li>platform</li>
-                                <li>cobat</li>
-                                </ul>
-                        <ul class="list-dr">
-                            <li ><p class="li1">Clothes</p></li> 
-                                    <li>pants</li>
-                                    <li>skirt</li>
-                                    <li>jacket</li>
-                                    <li>shorts</li>
-                                    <li>shirt</li>
-                                    </ul>
-                   
-                    </div>
-                </li>
-                    <li>  <a href="#">Outlet</a></li>
-                    <li >  <a href="#">Accessories </a></li>
-         </ul> 
-           <ul class="list">
-            <li> <a href="#">Login </a></li>
-             <i class="fas fa-search"></i>
-             <i class="fas fa-shopping-cart"></i>
-             <i class="far fa-heart"></i>
-                <li>  <a href="#">EN / AR</a></li>
-                <li >  <a href="#">Currency</a></li>  
-          </ul>
-             </div>
-            
-
-
-     <div class="home-content">
-                <h1>SPRING / SUMMER Collection</h1>
-                <br>
-                <p>SS'24  </p>
-                <button class="button1">Discover</button>
-     </div>
-
-
-    </div>  <!--home-->
-
-</section>
-
-
-<section>  
- <h1 class="title-gategory"> Special Category</h1>
- <div class="line-title"></div>
-<div class="category-items">
-<div class="category-item">
-        <img src="./Images/product7.jpg"   class="product"/>
-        <h5>Most Popular</h5>
-        <h4>Modern Shoeses Collection</h4>
-        <div class="icon1">
-            <i class="fas fa-chevron-right" padding="4px" ></i>
-          </div>
-    </div>
-
-<div class="category-item">
-        <img src="./Images/product4.jpg"  class="product"/>
-        <h5>Most Popular</h5>
-        <h4>Modern Bag Collection</h4>
-        <div class="icon1">
-            <i class="fas fa-chevron-right" padding="4px" ></i>
-          </div>
-    </div>
-
-<div class="category-item">
-        <img src="./Images/product11.jpg"  class="product"/>
-        <h5>Most Popular</h5>
-        <h4>Modern Accessories Collection</h4>
-        <div class="icon1">
-          <i class="fas fa-chevron-right" padding="4px" ></i>
-        </div>
-    </div>
-
-<div class="category-item">
-        <img src="./Images/product7.webp" class="product"/>
-        <h5>Most Popular</h5>
-        <h4>Modern Dresses Collection</h4>
-        <div class="icon1">
-            <i class="fas fa-chevron-right" padding="4px" ></i>
-          </div>
-    </div>
-
-<div class="category-item5">
-<div class="icon">
-<i class="fas fa-mug-hot" ></i>
-<h1>Penelope Astrid</h1>
-</div>
-
-<p>This is paragraph in template 2 showing a website using some html css and its new versions like html5 css3 This is paragraph in template 2 showing a website using some html css and its new versions like html5 css3 This is paragraph in template 2 showing a website using some html css and its new versions like html5 css3</p>
-<div class="bullets">
-   <div class="row"></div>
-   <div class="row"></div>
-   <div class="row"></div>
-</div> 
-
-</div>
+<div class="header">
+    <img src="./Images/logo.png" alt="Logo" class="img" />
     
+    <!-- Burger -->
+   <i class="fa-solid fa-bars burger" id="burgerIcon" onclick="toggleMenu()"></i>
 
-    
-<div class="category-item6">
-        <div class="discount">
-        <h5>30% Discount</h5>
-        <h3> Winter Collection</h3> 
-    </div>
-</div>
+    <ul class="list" id="navList">
+      <li><a href="#NewCollection">New Collection</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#ContactUs">Contact Us</a></li>
+    </ul>
+  </div>
 
-    <div class="category-item7">
-        <div class="discount">
-        <h5>30% Discount</h5>
-        <h3> Winter Collection</h3>
-    </div> 
-    </div>
-
-   </div>
-
-
-   <div class="icons">
-
-    <div class="icons-item">
-        <div class="perant-icon">
-        <i class="fas fa-tshirt" class="icon1"></i>
-        <i class="fas fa-globe-europe"  ></i>
-    </div>
-    <div class="icons-text">
-            <h2>Free Delivery</h2>
-            <h5>Free Shipping On All Order</h5>
-        </div> 
-    </div>
-
-    <div class="bullets1">
-        <div class="culmon"></div>
-        <div class="culmon"></div>
-        <div class="culmon"></div>
-     </div>
-
-    <div class="icons-item">
-        <div class="perant-icon">
-        <i class="fas fa-tshirt" class="icon1"></i>
-        <i class="fas fa-globe-europe"  ></i>
-    </div>
-    
-        <div class="icons-text">
-            <h2>Free Delivery</h2>
-            <h5>Free Shipping On All Order</h5>
-        </div>
-    </div>
-
-    <div class="bullets1">
-        <div class="culmon"></div>
-        <div class="culmon"></div>
-        <div class="culmon"></div>
-     </div>
-
-    <div class="icons-item">
-        <div class="perant-icon">
-        <i class="fas fa-tshirt" class="icon1"></i>
-        <i class="fas fa-globe-europe"  ></i>
-    </div>
-            <div class="icons-text">
-                <h2>Free Delivery</h2>
-                <h5>Free Shipping On All Order</h5>
-            </div>
-        </div>
-
-        <div class="bullets1">
-            <div class="culmon"></div>
-            <div class="culmon"></div>
-            <div class="culmon"></div>
-         </div>
-
-        <div class="icons-item">
-            <div class="perant-icon">
-            <i class="fas fa-tshirt" class="icon1"></i>
-            <i class="fas fa-globe-europe"  ></i>
-        </div>
-
-                <div class="icons-text">
-                    <h2>Free Delivery</h2>
-                    <h5>Free Shipping On All Order</h5>
-                </div>
-            </div>
-
-            <div class="bullets1">
-                <div class="culmon"></div>
-                <div class="culmon"></div>
-                <div class="culmon"></div>
-             </div>
-
-            <div class="icons-item">
-                <div class="perant-icon">
-                <i class="fas fa-tshirt" class="icon1"></i>
-                <i class="fas fa-globe-europe"  ></i>
-            </div>
-                    <div class="icons-text">
-                        <h2>Free Delivery</h2>
-                        <h5>Free Shipping On All Order</h5>
-                    </div>
-                </div>
-   </div>
+  <section id="NewCollection" class="home">
+    <div class="home-content">
      
+    </div>
+  </section>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("navList").classList.toggle("active");
+    }
+  </script>
+            
+<div class="home-content"> 
+  <div class="category-items">
+
+    <div class="category-item5">
+      <p>اكتشف مجموعتنا الخاصة بمناسبات الأعياد</p>
+      <br>
+      <p>أزياء أطفال أنيقة تمنحهم إطلالة مميزة</p>
+      <br>
+      <p>تصاميم عصرية مريحة تناسب الاحتفال</p>
+      <br>
+      <p>لأن فرحة العيد تبدأ من أناقة الصغار</p>
+    </div>   
+
+    <div class="category-item6"></div>
+
+  </div>
+</div>
+ <!--home-->
 </section>
 
-<section>
-<h1 class="title-prudcts"> Featured Products</h1>
-<div class="line-title"></div>
-<ul class="list-pr1">
-<li>Dresses</li> 
-<li>Shoeses</li>
-<li>Accessories</li>
-<li>Clothes</li>
-</ul>
-<div class="products">
-
-<div class="product-item">
-<div class="product-img">
-<img src="Images/front9.jpg" width="100%" height="80%">
-<div class="product-overlay">
-<img src="Images/back9.jpg" width="100%">
-<div class="social">
-<a  href="https://www.facebook.com/" target="_blank"> <i class="fab fa-facebook-square"></i> </a>   
-<a  href="https://www.twitter.com/" target="_blank"><i class="fab fa-twitter-square"></i></a>   
- <a  href="https://www.linkedin.com/" target="_blank">  <i class="fab fa-linkedin"></i> </a> 
-</div>
-</div> 
-</div>
-<div class="product-info">
-<ul class="list-icons">
-<li><i class="fas fa-star"></i></li> 
-<li><i class="fas fa-star"></i></li>
-<li><i class="fas fa-star"></i></li>
-<li><i class="far fa-star"></i></li>
- <li><i class="far fa-star"></i></li>
-</ul>
-<h2 class="product-info-title"> Product Item</h2>
-<p class="product-info-p">10$</p>
-</div>  
-</div>
 
 
-<div class="product-item">
-<div class="product-img">
-<img src="Images/front8.jpg" width="100%" height="80%">
-<div class="product-overlay">
-<img src="Images/back8.jpg" width="100%">
-<div class="social">
-    <a  href="https://www.facebook.com/" target="_blank"> <i class="fab fa-facebook-square"></i> </a>   
-    <a  href="https://www.twitter.com/" target="_blank"><i class="fab fa-twitter-square"></i></a>   
-     <a  href="https://www.linkedin.com/" target="_blank">  <i class="fab fa-linkedin"></i> </a> 
-    </div>
-</div> 
- </div>
-<div class="product-info">
-<ul class="list-icons">
-<li><i class="fas fa-star"></i></li> 
-<li><i class="fas fa-star"></i></li>
-<li><i class="fas fa-star"></i></li>
-<li><i class="far fa-star"></i></li>
-<li><i class="far fa-star"></i></li>
-</ul>
-<h2 class="product-info-title"> Product Item</h2>
-<p class="product-info-p">10$</p>
-</div>  
-</div>
+<section id="gallery">
+  <h2 class="title-products">Gallery</h2>
 
+  <div class="products">
 
-<div class="product-item">
-<div class="product-img">
-<img src="Images/front 71.jpg" width="100%" height="80%">
-<div class="product-overlay">
-<img src="Images/back7.jpg" width="100%">
-<div class="social">
-    <a  href="https://www.facebook.com/" target="_blank"> <i class="fab fa-facebook-square"></i> </a>   
-    <a  href="https://www.twitter.com/" target="_blank"><i class="fab fa-twitter-square"></i></a>   
-     <a  href="https://www.linkedin.com/" target="_blank">  <i class="fab fa-linkedin"></i> </a> 
-    </div>
-    </div> 
-</div>
-<div class="product-info">
-<ul class="list-icons">
-<li><i class="fas fa-star"></i></li> 
-<li><i class="fas fa-star"></i></li>
-<li><i class="fas fa-star"></i></li>
-<li><i class="far fa-star"></i></li>
-<li><i class="far fa-star"></i></li>
-</ul>
-  <h2 class="product-info-title"> Product Item</h2>
-<p class="product-info-p">10$</p>
-</div>  
-                                    
-</div>
-
-
-<div class="product-item">
-    <div class="product-img">
-    <img src="Images/front6.jpg" width="100%" height="80%">
-    <div class="product-overlay">
-    <img src="Images/back6.jpg" width="100%">
-    <div class="social">
-        <a  href="https://www.facebook.com/" target="_blank"> <i class="fab fa-facebook-square"></i> </a>   
-        <a  href="https://www.twitter.com/" target="_blank"><i class="fab fa-twitter-square"></i></a>   
-         <a  href="https://www.linkedin.com/" target="_blank">  <i class="fab fa-linkedin"></i> </a> 
-        </div>
-        </div> 
-    </div>
-    <div class="product-info">
-    <ul class="list-icons">
-    <li><i class="fas fa-star"></i></li> 
-    <li><i class="fas fa-star"></i></li>
-    <li><i class="fas fa-star"></i></li>
-    <li><i class="far fa-star"></i></li>
-    <li><i class="far fa-star"></i></li>
-    </ul>
-      <h2 class="product-info-title"> Product Item</h2>
-    <p class="product-info-p">10$</p>
-    </div>  
-                                        
-</div>
-
-<div class="product-item">
-    <div class="product-img">
-    <img src="Images/front5.jpg" width="100%" height="80%">
-    <div class="product-overlay">
-    <img src="Images/back5.jpg" width="100%">
-    <div class="social">
-        <a  href="https://www.facebook.com/" target="_blank"> <i class="fab fa-facebook-square"></i> </a>   
-        <a  href="https://www.twitter.com/" target="_blank"><i class="fab fa-twitter-square"></i></a>   
-         <a  href="https://www.linkedin.com/" target="_blank">  <i class="fab fa-linkedin"></i> </a> 
-        </div>
-        </div> 
-    </div>
-    <div class="product-info">
-    <ul class="list-icons">
-    <li><i class="fas fa-star"></i></li> 
-    <li><i class="fas fa-star"></i></li>
-    <li><i class="fas fa-star"></i></li>
-    <li><i class="far fa-star"></i></li>
-    <li><i class="far fa-star"></i></li>
-    </ul>
-      <h2 class="product-info-title"> Product Item</h2>
-    <p class="product-info-p">10$</p>
-    </div>  
-                                        
-    </div>
-
-
-
-<div class="product-item">
-        <div class="product-img">
-        <img src="Images/front4.jpg" width="100%" height="80%">
+    <div class="product-item">
+      <div class="product-img">
+        <img src="Images/1.2.jpeg" width="100%">
         <div class="product-overlay">
-        <img src="Images/back4.jpg" width="100%">
-        <div class="social">
-            <a  href="https://www.facebook.com/" target="_blank"> <i class="fab fa-facebook-square"></i> </a>   
-            <a  href="https://www.twitter.com/" target="_blank"><i class="fab fa-twitter-square"></i></a>   
-             <a  href="https://www.linkedin.com/" target="_blank">  <i class="fab fa-linkedin"></i> </a> 
-            </div>
-            </div> 
+          <img src="Images/1.2.jpeg" width="100%">
         </div>
-        <div class="product-info">
-        <ul class="list-icons">
-        <li><i class="fas fa-star"></i></li> 
-        <li><i class="fas fa-star"></i></li>
-        <li><i class="fas fa-star"></i></li>
-        <li><i class="far fa-star"></i></li>
-        <li><i class="far fa-star"></i></li>
-        </ul>
-          <h2 class="product-info-title"> Product Item</h2>
-        <p class="product-info-p">10$</p>
-        </div>  
-                                            
-        </div>
-</div>
+      </div>
+    </div>
+  <div class="product-item">
+    <div class="product-img">
+      <img src="Images/2.2.jpeg" width="100%">
+      <div class="product-overlay">
+        <img src="Images/2.2.jpeg" width="100%">
+      </div>
+    </div>
+  </div>
+
+  <div class="product-item">
+    <div class="product-img">
+      <img src="Images/3.2.jpeg" width="100%" height="80%">
+      <div class="product-overlay">
+        <img src="Images/3.2.jpeg" width="100%">
+      </div>
+    </div>
+  </div>
+
+  <div class="product-item">
+    <div class="product-img">
+      <img src="Images/4.1.jpeg" width="100%" height="80%">
+      <div class="product-overlay">
+        <img src="Images/4.1.jpeg" width="100%">
+      </div>
+    </div>
+  </div>
+
+  <div class="product-item">
+    <div class="product-img">
+      <img src="Images/5.2.jpeg" width="100%" height="80%">
+      <div class="product-overlay">
+        <img src="Images/5.2.jpeg" width="100%">
+      </div>
+    </div>
+  </div>
+
+  <div class="product-item">
+    <div class="product-img">
+      <img src="Images/10.2.jpeg" width="100%" height="150%">
+      <div class="product-overlay">
+        <img src="Images/10,1.jpeg" width="100%">
+      </div>
+    </div>
+  </div>
+
+  <div class="product-item">
+    <div class="product-img">
+      <img src="Images/11.1.jpeg" width="100%" height="150%">
+      <div class="product-overlay">
+        <img src="Images/11.1.jpeg" width="100%">
+      </div>
+    </div>
+  </div>
+
+  <div class="product-item">
+    <div class="product-img">
+      <img src="Images/9.1.jpeg" width="100%" height="150%">
+      <div class="product-overlay">
+        <img src="Images/9.1.jpeg" width="100%">
+      </div>
+    </div>
+  </div>
+
+  <div class="product-item">
+    <div class="product-img">
+      <img src="Images/7.1.jpeg" width="100%" height="150%">
+      <div class="product-overlay">
+        <img src="Images/7.1.jpeg" width="100%">
+      </div>
+    </div>
+  </div>
+
+  <div class="product-item">
+    <div class="product-img">
+      <img src="Images/12.1.jpeg" width="100%" height="150%">
+      <div class="product-overlay">
+        <img src="Images/12.1.jpeg" width="100%">
+      </div>
+    </div>
+  </div>
+
+  <div class="product-item">
+    <div class="product-img">
+      <img src="Images/13.1.jpeg" width="100%" height="150%">
+      <div class="product-overlay">
+        <img src="Images/13.1.jpeg" width="100%">
+      </div>
+    </div>
+  </div>
+
+  <div class="product-item">
+    <div class="product-img">
+      <img src="Images/14.1.jpeg" width="100%" height="150%">
+      <div class="product-overlay">
+        <img src="Images/14.1.jpeg" width="100%">
+      </div>
+    </div>
+  </div>
+
+  <div class="product-item">
+    <div class="product-img">
+      <img src="Images/15.1.jpeg" width="100%" height="150%">
+      <div class="product-overlay">
+        <img src="Images/15.1.jpeg" width="100%">
+      </div>
+    </div>
+  </div>
+
+  <div class="product-item">
+    <div class="product-img">
+      <img src="Images/16.1.jpeg" width="100%" height="150%">
+      <div class="product-overlay">
+        <img src="Images/16.1.jpeg" width="100%">
+      </div>
+    </div>
+  </div>
+
+  <div class="product-item">
+    <div class="product-img">
+      <img src="Images/17.1.jpeg" width="100%" height="150%">
+      <div class="product-overlay">
+        <img src="Images/17.1.jpeg" width="100%">
+      </div>
+    </div>
+  </div>
+
 </section>
 
 
+<section id="ContactUs">
+  <div class="contact">
+    <div class="content-contact">
+
+      <div class="p-contact">
+        <p>HAZNEDAR MAH. ŞEVKETDAĞ CAD. NO: 38 İÇ KAPI NO: 1</p>
+        <p>GÜNGÖREN / İSTANBUL</p>
+        <p>+90 534 677 53 18</p>
+      </div>
+
+      <div class="social-icons">
+        <div class="contact-div">
+          <a href="https://www.facebook.com/share/167ChfwFt3/?mibextid=wwXIfr/" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        </div>
+        <div class="contact-div">
+          <a href="https://www.instagram.com/hossam.om85?igsh=dm5zNjZsMm45Z3M%3D&utm_source=qr/" target="_blank">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+        <div class="contact-div">
+          <a href="https://wa.me/905346775318/" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+        <div class="contact-div">
+          <a href="https://t.me/viorkids85/" target="_blank">
+            <i class="fab fa-telegram"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 </body>
 </html>
